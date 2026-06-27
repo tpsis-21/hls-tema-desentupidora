@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Hub Local Sites — branco · laranja · preto */
+    --c-bg:          255 255 255;
+    --c-surface:     255 255 255;
+    --c-elev:        245 245 245;
+    --c-border:      229 229 229;
+    --c-rule:        212 212 212;
+    --c-ink:          10  10  10;
+    --c-ink-muted:   115 115 115;
+    --c-ink-faint:   163 163 163;
+    --c-primary:     234  88  12;
+    --c-primary-soft: 255 247 237;
+
+    /* Sidebar escura (igual ao hub) */
+    --c-sidebar:          10  10  10;
+    --c-sidebar-fg:      250 250 250;
+    --c-sidebar-muted:   163 163 163;
+    --c-sidebar-accent:   23  23  23;
+    --c-sidebar-border:   38  38  38;
+  }
+
+  html, body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+
+  code, pre, kbd, samp, .mono {
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    font-feature-settings: 'ss01';
+  }
+
+  input, select, textarea, button {
+    font-family: inherit;
+  }
+}
+
+@layer components {
+  .ui-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-[10px] text-sm font-semibold;
+    @apply bg-adm-primary text-white shadow-sm transition-colors;
+  }
+  .ui-btn-primary:hover {
+    background: color-mix(in oklab, rgb(var(--c-primary)) 90%, black);
+  }
+
+  .ui-input {
+    @apply w-full min-h-[44px] px-3.5 py-2.5 rounded-[10px] border border-adm-border bg-adm-surface text-adm-ink text-sm;
+  }
+  .ui-input:focus {
+    @apply outline-none ring-2 ring-adm-primary/25 border-adm-primary;
+  }
+
+  .ui-card {
+    @apply bg-adm-surface border border-adm-border rounded-2xl shadow-sm;
+  }
+}

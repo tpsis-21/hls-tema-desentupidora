@@ -1,0 +1,122 @@
+---
+import { BLOG_BASE } from '../../lib/postUrl';
+import { getCollection } from 'astro:content';
+import { readData } from '../../lib/readData';
+
+export interface Props {
+    postAuthor?: string;
+}
+const { postAuthor } = Astro.props;
+
+const siteConfig = readData('siteConfig.json');
+const authors = readData('authors.json') || [];
+
+let matchedAuthor = authors.find((a: any) => a.name === postAuthor);
+if (!matchedAuthor && siteConfig.defaultAuthorId) {
+    matchedAuthor = authors.find((a: any) => a.id === siteConfig.defaultAuthorId);
+}
+
+const displayAuthor = matchedAuthor || {
+    name: siteConfig.author || "Equipe Desentupidora",
+    bio: siteConfig.description || "Serviços especializados de desentupimento.",
+    avatar: siteConfig.authorImage || "/assets/images/blog/about-widget.jpg"
+};
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const recentPosts = posts.slice(0, 3);
+
+// Simple category count
+const categories = posts.reduce((acc: any, post) => {
+    const cat = post.data.category || 'Uncategorized';
+    acc[cat] = (acc[cat] || 0) + 1;
+    return acc;
+}, {});
+---
+<style>
+    .recent-post-widget .post {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .recent-post-widget .img-holder {
+        width: 90px;
+        height: 80px;
+        min-width: 90px;
+        overflow: hidden;
+        margin-right: 15px;
+        border-radius: 5px;
+    }
+    .recent-post-widget .img-holder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .recent-post-widget .details h4 {
+        font-size: 16px;
+        line-height: 1.4em;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+    .recent-post-widget .details h4 a {
+        color: #222;
+        text-decoration: none;
+    }
+    .recent-post-widget .details .date {
+        font-size: 13px;
+        color: #666;
+    }
+</style>
+
+<div class="blog-sidebar">
+    <div class="widget about-widget">
+        <div class="img-holder">
+            <img src={displayAuthor.avatar || displayAuthor.authorImage || "/assets/images/blog/about-widget.jpg"} alt={displayAuthor.name}>
+        </div>
+        <h4>{displayAuthor.name}</h4>
+        <p>{displayAuthor.bio || displayAuthor.description || ""}</p>
+        <div class="social">
+            <ul class="clearfix">
+                {siteConfig.social?.facebook && siteConfig.social.facebook !== '#' && <li><a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer"><i class="ti-facebook"></i></a></li>}
+                {siteConfig.social?.twitter && siteConfig.social.twitter !== '#' && <li><a href={siteConfig.social.twitter} target="_blank" rel="noopener noreferrer"><i class="ti-twitter-alt"></i></a></li>}
+                {siteConfig.social?.linkedin && siteConfig.social.linkedin !== '#' && <li><a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer"><i class="ti-linkedin"></i></a></li>}
+                {siteConfig.social?.instagram && siteConfig.social.instagram !== '#' && <li><a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer"><i class="ti-instagram"></i></a></li>}
+                {siteConfig.social?.youtube && siteConfig.social.youtube !== '#' && <li><a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer"><i class="ti-youtube"></i></a></li>}
+                {siteConfig.social?.pinterest && siteConfig.social.pinterest !== '#' && <li><a href={siteConfig.social.pinterest} target="_blank" rel="noopener noreferrer"><i class="ti-pinterest"></i></a></li>}
+            </ul>
+        </div>
+        <div class="aw-shape">
+            <img src="/assets/images/blog/ab.png" alt="">
+        </div>
+    </div>
+    <div class="widget category-widget">
+        <h3>Categorias</h3>
+        <ul>
+            {Object.entries(categories).map(([name, count]) => (
+                <li><a href={`/categoria/${name.toLowerCase()}`}>{name} <span>{count}</span></a></li>
+            ))}
+        </ul>
+    </div>
+    <div class="widget recent-post-widget">
+        <h3>Posts Relacionados</h3>
+        <div class="posts">
+            {recentPosts.map((post) => (
+                <div class="post">
+                    <div class="img-holder">
+                        <img src={post.data.heroImage || "/assets/images/recent-posts/img-1.jpg"} alt={post.data.title}>
+                    </div>
+                    <div class="details">
+                        <h4><a href={`${BLOG_BASE}/${post.slug}`}>{post.data.title}</a></h4>
+                        <span class="date">{post.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })} </span>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+    <div class="wpo-contact-widget widget">
+        <h2>Como Podemos <br> Ajudar Você?</h2>
+        <p>Atendimento emergencial 24 horas por dia em toda a região. Entre em contato e solicite seu orçamento. </p>
+        <a href="/contato">Fale Conosco</a>
+   </div>
+</div>

@@ -1,0 +1,90 @@
+---
+import { BLOG_BASE } from '../../lib/postUrl';
+import PlumcoLayout from '../../layouts/PlumcoLayout.astro';
+import PlumcoSidebar from '../../components/layout/PlumcoSidebar.astro';
+import { readData } from '../../lib/readData';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const categoriesData = readData('categories.json', []);
+  const allCategories = Array.isArray(categoriesData) ? categoriesData : [];
+
+  return allCategories.map(cat => ({
+    params: { categoria: cat.toLowerCase().replace(/\s+/g, '-') },
+    props: { categoryName: cat },
+  }));
+}
+
+const { categoryName } = Astro.props;
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const posts = allPosts.filter(p =>
+  (p.data.category || '').toLowerCase() === categoryName.toLowerCase()
+);
+const sobreData = readData('sobre.json');
+const heroBg = sobreData.hero?.bgImage || "/assets/images/page-title.jpg";
+---
+
+<PlumcoLayout title={`Categoria: ${categoryName}`} description={`Artigos sobre ${categoryName}`}>
+    <!-- start wpo-page-title -->
+    <section class="wpo-page-title" style={`background-image: url(${heroBg}); background-position: center center; background-size: cover;`}>
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>{categoryName}</h2>
+                        <ol class="wpo-breadcumb-wrap">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                            <li>Categoria</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end page-title -->
+
+    <!-- start wpo-blog-pg-section -->
+    <section class="wpo-blog-pg-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8">
+                    <div class="wpo-blog-content">
+                        {posts.length === 0 && (
+                            <div class="bg-white rounded-xl border border-gray-200 p-8 text-center text-gray-400">
+                                Nenhum artigo nesta categoria ainda.
+                            </div>
+                        )}
+
+                        {posts.map((post) => (
+                            <div class="post format-standard-image">
+                                {post.data.heroImage && (
+                                    <div class="entry-media">
+                                        <img src={post.data.heroImage} alt={post.data.title}>
+                                    </div>
+                                )}
+                                <div class="entry-meta">
+                                    <ul>
+                                        <li><i class="fi flaticon-user"></i> By {post.data.author || "Admin"}</li>
+                                        <li><i class="fi flaticon-calendar"></i> {post.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}</li>
+                                    </ul>
+                                </div>
+                                <div class="entry-details">
+                                    <h3><a href={`${BLOG_BASE}/${post.slug}`}>{post.data.title}</a></h3>
+                                    <p>{post.data.description}</p>
+                                    <a href={`${BLOG_BASE}/${post.slug}`} class="read-more">LEIA MAIS...</a>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div class="col col-lg-4">
+                    <PlumcoSidebar />
+                </div>
+            </div>
+        </div> <!-- end container -->
+    </section>
+    <!-- end wpo-blog-pg-section -->
+</PlumcoLayout>

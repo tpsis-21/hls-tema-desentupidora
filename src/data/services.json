@@ -1,0 +1,97 @@
+{
+    "items": [
+        {
+            "title": "Desentupimento de Pia",
+            "description": "Equipamentos que removem gordura e detritos sem danificar a tubulação.",
+            "icon": "Wrench",
+            "image": "/assets/images/cms/1774638841550-desentupidora.jpg",
+            "slug": "kitchen-plumbing",
+            "link": "/servicos/kitchen-plumbing",
+            "fullContent": "Nossos serviços de desentupimento de pia utilizam equipamentos rotativos de última geração que garantem a remoção completa de placas de gordura e restos de comida, restaurando o fluxo normal da água sem causar danos ao PVC ou metal da tubulação.",
+            "sidebar": {
+                "title": "Problemas na <br> sua Pia?",
+                "description": "Atendimento rápido para desentupimento de pias residenciais e comerciais. Ligue agora!",
+                "buttonText": "Chamar no WhatsApp",
+                "link": "https://wa.me/5511999999999"
+            },
+            "faqs": [
+                {
+                    "question": "A gordura na pia pode entupir tudo?",
+                    "answer": "Sim, com o tempo a gordura se solidifica e cria uma crosta que bloqueia totalmente a passagem da água."
+                }
+            ],
+            "image2": "/assets/images/cms/1774630712211-desentupidora2.jpg",
+            "image3": "/assets/images/cms/1774630715225-desentupidora2.jpg"
+        },
+        {
+            "title": "Esgoto e Galerias",
+            "description": "Limpeza técnica de rede de esgoto com hidrojateamento de alta pressão.",
+            "icon": "Pipette",
+            "image": "/assets/images/cms/1774638847809-desentupidora2.jpg",
+            "slug": "gas-line",
+            "link": "/servicos/gas-line",
+            "sidebar": {
+                "title": "Emergência em <br> Esgoto 24h",
+                "description": "Equipe especializada em galerias e redes coletoras. Orçamento gratuito no local.",
+                "buttonText": "Solicitar Visita",
+                "link": "/contato"
+            }
+        },
+        {
+            "title": "Desentupimento de Ralo",
+            "description": "Remoção de obstruções em ralos de banheiros, quintais e áreas de serviço.",
+            "icon": "ShowerHead",
+            "image": "/assets/images/cms/1774638859505-desentupidora.jpg",
+            "slug": "water-line",
+            "link": "/servicos/water-line",
+            "sidebar": {
+                "title": "Ralo Entupido? <br> Resolvemos Já",
+                "description": "Não use produtos químicos que corroem os canos. Chame quem entende de desentupimento.",
+                "buttonText": "Fale Conosco",
+                "link": "/contato"
+            }
+        },
+        {
+            "title": "Vaso Sanitário",
+            "description": "Desentupimento rápido de vasos sanitários com higiene e segurança.",
+            "icon": "Bath",
+            "image": "/assets/images/cms/1774638868192-desentupidora2.jpg",
+            "slug": "bathroom",
+            "link": "/servicos/bathroom",
+            "sidebar": {
+                "title": "Vaso Sanitário <br> Interrompido?",
+                "description": "Atendimento discreto e higiênico 24 horas. Resolvemos sem quebrar nada.",
+                "buttonText": "Atendimento 24h",
+                "link": "https://wa.me/5511999999999"
+            }
+        },
+        {
+            "title": "Caixa de Gordura",
+            "description": "Limpeza e desobstrução de caixas de gordura residenciais e comerciais.",
+            "icon": "Trash2",
+            "image": "/assets/images/cms/1774638872984-desentupidora.webp",
+            "slug": "basement",
+            "link": "/servicos/basement",
+            "sidebar": {
+                "title": "Limpeza de <br> Caixa de Gordura",
+                "description": "Evite mau cheiro e retorno de esgoto. Manutenção preventiva e corretiva.",
+                "buttonText": "Orçamento Já",
+                "link": "/contato"
+            }
+        },
+        {
+            "title": "Hidrojateamento",
+            "description": "Lavagem de alta pressão para desobstrução total de tubulações complexas.",
+            "icon": "Zap",
+            "image": "/assets/images/cms/1774638878010-desentupidora2.jpg",
+            "slug": "remodeling",
+            "link": "/servicos/remodeling",
+            "sidebar": {
+                "title": "Força Total no <br> Hidrojateamento",
+                "description": "Tecnologia de ponta para desobstrução de redes industriais e condomínios.",
+                "buttonText": "Saiba Mais",
+                "link": "/contato"
+            }
+        }
+    ]
+}

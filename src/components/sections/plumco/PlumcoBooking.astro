@@ -1,0 +1,85 @@
+---
+const { subtitle, title, videoUrl, image, imageS2 } = Astro.props;
+---
+<section class="wpo-contact-section section-padding">
+    <div class="wpo-contact-img">
+        <img src={image} alt="">
+        <a href={videoUrl} class="video-btn" data-type="iframe">
+            <i class="fi flaticon-play"></i>
+        </a>
+    </div>
+    <div class="wpo-contact-img-s2">
+        <img src={imageS2} alt="">
+    </div>
+    <div class="container">
+        <div class="wpo-contact-section-wrapper">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="wpo-contact-form-area">
+                        <div class="wpo-section-title-s2">
+                            <span>{subtitle}</span>
+                            <h2>{title}</h2>
+                        </div>
+                        <form method="post" class="contact-validation-active" id="contact-form">
+                            <div class="row">
+                                <div class="col col-lg-6 col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="name">Nome completo*</label>
+                                        <input type="text" class="form-control" name="name" id="name"
+                                            placeholder="Seu Nome">
+                                    </div>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="email">E-mail*</label>
+                                        <input type="email" class="form-control" name="email" id="email"
+                                            placeholder="seuemail@gmail.com">
+                                    </div>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="phone">Telefone de Contato*</label>
+                                        <input type="text" class="form-control" name="phone" id="phone"
+                                            placeholder="(00) 00000-0000">
+                                    </div>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label>Selecione o serviço*</label>
+                                        <select name="subject" class="form-control">
+                                            <option disabled="disabled" selected>Assunto</option>
+                                            <option>Desentupimento de Pia</option>
+                                            <option>Esgoto e Galerias</option>
+                                            <option>Desentupimento de Ralo</option>
+                                            <option>Vaso Sanitário</option>
+                                            <option>Caixa de Gordura</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col fullwidth col-lg-12 ">
+                                    <div class="form-group">
+                                        <label for="note">Observações*</label>
+                                        <textarea class="form-control" name="note" id="note"
+                                            placeholder="Descreva brevemente o problema"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit-area">
+                                <button type="submit" class="theme-btn">SOLICITAR ORÇAMENTO</button>
+                                <div id="loader">
+                                    <i class="ti-reload"></i>
+                                </div>
+                            </div>
+                            <div class="clearfix error-handling-messages">
+                                <div id="success">Obrigado! Sua mensagem foi enviada.</div>
+                                <div id="error"> Ocorreu um erro ao enviar. Tente novamente mais tarde.
+                                </div>
+                            </div>
+                        </form>
+                        <div class="border-style"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,61 @@
+---
+import * as LucideIcons from 'lucide-react';
+const { title, description, items = [], showButton = true } = Astro.props;
+---
+<section class="wpo-service-section-s2 section-padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-5">
+                <div class="wpo-section-title">
+                    <h2>{title}</h2>
+                    <p>{description}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {items.map((service: any) => {
+                const IconComponent = (LucideIcons as any)[service.icon];
+                const isPath = service.icon?.startsWith('/') || service.icon?.startsWith('http');
+
+                return (
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="wpo-service-item">
+                            <div class="wpo-service-img" style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px;">
+                                {isPath ? (
+                                    <img src={service.icon} alt={service.title} style="max-height: 110px; width: auto;" />
+                                ) : IconComponent ? (
+                                    <IconComponent size={100} strokeWidth={1} />
+                                ) : (
+                                    <LucideIcons.HelpCircle size={100} />
+                                )}
+                            </div>
+                            <div class="wpo-service-text">
+                                <h2><a href={service.link}>{service.title}</a></h2>
+                                <p>{service.description}</p>
+                            </div>
+                            <div class="visible-icon">
+                                {isPath ? (
+                                    <img src={service.icon} alt={service.title} />
+                                ) : IconComponent ? (
+                                    <IconComponent size={100} strokeWidth={1} />
+                                ) : (
+                                    <LucideIcons.HelpCircle size={100} />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+        
+        {showButton && items.length > 0 && (
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <a href="/servicos" class="theme-btn" style="padding: 15px 40px; font-weight: bold;">
+                        VER TODOS OS SERVIÇOS
+                    </a>
+                </div>
+            </div>
+        )}
+    </div>
+</section>

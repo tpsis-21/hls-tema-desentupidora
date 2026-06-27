@@ -1,0 +1,71 @@
+---
+import { readData } from '../lib/readData';
+import PlumcoLayout from '../layouts/PlumcoLayout.astro';
+import PlumcoServices from '../components/sections/plumco/PlumcoServices.astro';
+import PlumcoFunFacts from '../components/sections/plumco/PlumcoFunFacts.astro';
+import PlumcoTeam from '../components/sections/plumco/PlumcoTeam.astro';
+import PlumcoTestimonials from '../components/sections/plumco/PlumcoTestimonials.astro';
+import PlumcoLatestBlog from '../components/sections/plumco/PlumcoLatestBlog.astro';
+
+const sobreData = readData('sobre.json');
+const homeData = readData('home.json');
+const siteConfig = readData('siteConfig.json');
+---
+
+<PlumcoLayout title={sobreData.hero?.title || "Sobre Nós"}>
+    <!-- start wpo-page-title -->
+    <section class="wpo-page-title" style={`background-image: url(${sobreData.hero?.bgImage || '/assets/images/page-title.jpg'}); background-position: center center; background-size: cover;`}>
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>{sobreData.hero?.title || "Sobre"}</h2>
+                        <ol class="wpo-breadcumb-wrap">
+                            <li><a href="/">Home</a></li>
+                            <li>{sobreData.hero?.subtitle || "Sobre"}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end page-title -->
+
+    <!-- start of wpo-about-section -->
+    <section class="wpo-about-section section-padding">
+        <div class="container">
+            <div class="wpo-about-section-wrapper">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-12 col-12">
+                        <div class="wpo-about-img">
+                            <img src={sobreData.about?.image || "/assets/images/about.jpg"} alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-12 col-12">
+                        <div class="wpo-about-content">
+                            <div class="wpo-section-title-s2">
+                                <h2>{sobreData.about?.title || "Com experiência em desentupimento."}</h2>
+                            </div>
+                            <div class="wpo-about-content-inner">
+                                <div set:html={sobreData.about?.content} />
+                                <div class="signeture">
+                                    <h4>{sobreData.about?.authorName || siteConfig.author}</h4>
+                                    <p>{sobreData.about?.authorRole || "CEO"}</p>
+                                    <span><img src={sobreData.about?.signatureImage || "/assets/images/signeture.png"} alt=""></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end of wpo-about-section -->
+
+    <PlumcoServices {...sobreData.services} showButton={false} />
+    <PlumcoFunFacts {...sobreData.funFacts} />
+    <PlumcoTeam {...homeData.team} />
+    <PlumcoTestimonials {...sobreData.testimonials} />
+    <PlumcoLatestBlog {...homeData.latestBlog} />
+
+</PlumcoLayout>

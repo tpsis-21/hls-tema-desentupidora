@@ -1,0 +1,22 @@
+{
+    "hero": {
+        "title": "Contato",
+        "subtitle": "FALE CONOSCO",
+        "bgImage": "/assets/images/cms/1774626408424-desentupidora2.jpg"
+    },
+    "info": {
+        "title": "Tem Alguma Dúvida?",
+        "description": "Entre em contato conosco para orçamentos rápidos ou emergências. Atendemos 24 horas por dia.",
+        "address": "R. Antônio Bandeira, 129, Alto da Boa Vista",
+        "email": "contato@desentupidorapro.com.br",
+        "phone": "(11) 99999-9999",
+        "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3676.7498095630035!2d-43.285456224691394!3d-22.84874407929603!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997b8645143f0b%3A0xbc0140286b9a9683!2sCampo%20do%20Ordem%20-%20Comunidade%20Vila%20Cruzeiro!5e0!3m2!1spt-BR!2sbr!4v1774628515569!5m2!1spt-BR!2sbr\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+        "formServices": [
+            "Desentupimento de Pia",
+            "Esgoto e Galerias",
+            "Desentupimento de Ralo",
+            "Caixa de Gordura",
+            "Hidrojateamento"
+        ]
+    }
+}

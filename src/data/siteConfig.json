@@ -1,0 +1,38 @@
+{
+  "name": "Desentupidora 24hs",
+  "description": "Serviços especializados de desentupimento residencial e comercial 24 horas.",
+  "url": "https://hls-tema-desentupidora.vercel.app",
+  "author": "Equipe Desentupidora",
+  "language": "pt-BR",
+  "logo": "/uploads/1774637069387-logo.png",
+  "showLogo": false,
+  "logoHeight": 60,
+  "theme": {
+    "primary": "#0052da",
+    "accent": "#0041ac",
+    "font": "poppins",
+    "dark": "#0D2137"
+  },
+  "social": {
+    "instagram": "https://instagram.com",
+    "twitter": "https://instagram.com",
+    "facebook": "https://instagram.com",
+    "pinterest": "#",
+    "youtube": "https://instagram.com",
+    "linkedin": "https://instagram.com",
+    "github": "https://instagram.com"
+  },
+  "contact": {
+    "email": "contato@desentupidorapro.com.br",
+    "phone": "(12) 99999-9999",
+    "address": "Av. Principal, 1000 - São Paulo, SP",
+    "name": "Suporte 24h"
+  },
+  "legal": {
+    "terms_last_updated": "2026-03-26",
+    "privacy_last_updated": "2026-03-26"
+  },
+  "phone": "(12) 99999-9999",
+  "address": "Av. Principal, 1000 - São Paulo, SP",
+  "defaultAuthorId": "author-1"
+}

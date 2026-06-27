@@ -1,0 +1,187 @@
+---
+import { readData } from '../lib/readData';
+import PlumcoLayout from '../layouts/PlumcoLayout.astro';
+
+const contatoData = readData('contato.json');
+const siteConfig = readData('siteConfig.json');
+---
+
+<PlumcoLayout title={contatoData.hero?.title || "Contato"}>
+    <!-- start wpo-page-title -->
+    <section class="wpo-page-title" style={`background-image: url(${contatoData.hero?.bgImage || '/assets/images/page-title.jpg'}); background-position: center center; background-size: cover;`}>
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>{contatoData.hero?.title || "Contato"}</h2>
+                        <ol class="wpo-breadcumb-wrap">
+                            <li><a href="/">Home</a></li>
+                            <li>{contatoData.hero?.subtitle || "Contato"}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end page-title -->
+
+    <!-- start wpo-contact-pg-section -->
+    <section class="wpo-contact-pg-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-10 offset-lg-1">
+                    <div class="row">
+                        <div class="col col-lg-4 col-md-6 col-12">
+                            <div class="wpo-contact-info-item">
+                                <div class="icon">
+                                    <div class="icon-inner">
+                                        <i class="fi flaticon-location"></i>
+                                    </div>
+                                </div>
+                                <div class="text">
+                                    <h3>Endereço</h3>
+                                    <p set:html={contatoData.info?.address || siteConfig.address} />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-lg-4 col-md-6 col-12">
+                            <div class="wpo-contact-info-item">
+                                <div class="icon">
+                                    <div class="icon-inner">
+                                        <i class="fi flaticon-send"></i>
+                                    </div>
+                                </div>
+                                <div class="text">
+                                    <h3>E-mail</h3>
+                                    <p set:html={contatoData.info?.email || siteConfig.contact?.email} />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-lg-4 col-md-6 col-12">
+                            <div class="wpo-contact-info-item">
+                                <div class="icon">
+                                    <div class="icon-inner">
+                                        <i class="fi flaticon-phone-call"></i>
+                                    </div>
+                                </div>
+                                <div class="text">
+                                    <h3>Ligue Agora</h3>
+                                    <p set:html={contatoData.info?.phone || siteConfig.phone} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wpo-contact-title">
+                        <h2>{contatoData.info?.title || "Tem Alguma Dúvida?"}</h2>
+                        <p>{contatoData.info?.description || "Entre em contato conosco para orçamentos rápidos ou emergências."}</p>
+                    </div>
+                    <div class="wpo-contact-form-area">
+                        <form method="post" class="contact-validation-active" id="contact-form-main">
+                            <div>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Seu Nome*">
+                            </div>
+                            <div>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Seu E-mail*">
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" name="adress" id="adress" placeholder="Endereço">
+                            </div>
+                            <div>
+                                <select name="service" class="form-control">
+                                    <option disabled="disabled" selected>Serviço</option>
+                                    {(contatoData.info?.formServices || []).map((service: string) => (
+                                        <option>{service}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div class="fullwidth">
+                                <textarea class="form-control" name="note" id="note" placeholder="Sua Mensagem..."></textarea>
+                            </div>
+                            <div class="submit-area">
+                                <button type="submit" class="theme-btn">Enviar Mensagem</button>
+                                <div id="loader">
+                                    <i class="ti-reload"></i>
+                                </div>
+                            </div>
+                            <div class="clearfix error-handling-messages">
+                                <div id="success">Obrigado! Recebemos sua mensagem.</div>
+                                <div id="error"> Ocorreu um erro ao enviar. Tente novamente mais tarde.</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end container -->
+
+        <section class="wpo-contact-map-section">
+            <h2 class="hidden">Contact map</h2>
+            <div class="wpo-contact-map">
+                <iframe src={contatoData.info?.mapUrl} allowfullscreen></iframe>
+            </div>
+        </section>
+    </section>
+    <!-- end wpo-contact-pg-section -->
+
+    <style>
+        .wpo-contact-info-item {
+            text-align: center;
+            padding: 50px 30px;
+            background: #fff;
+            box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            height: 100%;
+            transition: all .3s;
+            border: 1px solid #f0f0f0;
+        }
+        .wpo-contact-info-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 15px 50px 0px rgba(0, 0, 0, 0.1);
+        }
+        .wpo-contact-info-item .icon {
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            background: #f8f9fa;
+            text-align: center;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .wpo-contact-info-item .icon i {
+            font-size: 30px;
+            color: #1d2736;
+        }
+        .wpo-contact-info-item .text h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1d2736;
+        }
+        .wpo-contact-info-item .text p {
+            margin-bottom: 0;
+            line-height: 1.8;
+            color: #666;
+            font-size: 15px;
+        }
+        
+        .wpo-contact-title {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 50px;
+        }
+        .wpo-contact-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1d2736;
+        }
+        .wpo-contact-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #666;
+        }
+    </style>
+</PlumcoLayout>

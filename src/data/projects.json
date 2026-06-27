@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Water Line Repair",
+        "category": "Plumbing",
+        "filter": "Kitchen Water",
+        "image": "/assets/images/projects/img-1.jpg"
+    },
+    {
+        "title": "Kitchen Plumbing",
+        "category": "Plumbing",
+        "filter": "Kitchen",
+        "image": "/assets/images/projects/img-6.jpg"
+    },
+    {
+        "title": "Remodeling Service",
+        "category": "Plumbing",
+        "filter": "Water",
+        "image": "/assets/images/projects/img-2.jpg"
+    },
+    {
+        "title": "Water Line Repair",
+        "category": "Plumbing",
+        "filter": "Bathroom Water",
+        "image": "/assets/images/projects/img-7.jpg"
+    },
+    {
+        "title": "Kitchen Plumbing",
+        "category": "Plumbing",
+        "filter": "Gas Kitchen",
+        "image": "/assets/images/projects/img-8.jpg"
+    },
+    {
+        "title": "Gas Line Services",
+        "category": "Plumbing",
+        "filter": "Gas",
+        "image": "/assets/images/projects/img-9.jpg"
+    }
+]

@@ -1,0 +1,59 @@
+---
+import PlumcoLayout from '../../layouts/PlumcoLayout.astro';
+import { readData } from '../../lib/readData';
+
+const data = readData('services.json');
+const services = data.items || data;
+const sobreData = readData('sobre.json');
+const heroBg = sobreData.hero?.bgImage || "/assets/images/page-title.jpg";
+---
+
+<PlumcoLayout title="Serviços">
+    <!-- start wpo-page-title -->
+    <section class="wpo-page-title" style={`background-image: url(${heroBg}); background-position: center center; background-size: cover;`}>
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>Nossos Serviços</h2>
+                        <ol class="wpo-breadcumb-wrap">
+                            <li><a href="/">Home</a></li>
+                            <li>Serviços</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end page-title -->
+
+     <!-- start wpo-service-section -->
+     <section class="wpo-service-section section-padding">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-5">
+                    <div class="wpo-section-title">
+                        <h2>Melhores Serviços que Oferecemos</h2>
+                        <p>Focados no cuidado e interação para crianças com TEA e suporte especializado de enfermagem.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {services.map((service: any) => (
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="wpo-service-item">
+                            <div class="wpo-service-img">
+                                <img src={service.image || "/assets/images/service/1.jpg"} alt={service.title}>
+                            </div>
+                            <div class="wpo-service-text">
+                                 <h2><a href={`/servicos/${service.slug}`}>{service.title}</a></h2>
+                                 <p>{service.description}</p>
+                                 <a href={`/servicos/${service.slug}`}>LEIA MAIS <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                   </div>
+                ))}
+            </div>
+        </div>
+    </section>
+</PlumcoLayout>

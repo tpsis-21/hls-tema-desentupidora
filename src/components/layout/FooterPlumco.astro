@@ -1,0 +1,91 @@
+---
+import { readData } from '../../lib/readData';
+
+const siteConfig = readData('siteConfig.json');
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="wpo-site-footer">
+    <div class="wpo-upper-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
+                    <div class="widget about-widget">
+                        <div class="logo widget-title">
+                            {siteConfig.showLogo !== false ? (
+                                <img src={siteConfig.logo || "/assets/images/logo2.png"} alt={siteConfig.name}>
+                            ) : (
+                                <span class="logo-text" style="font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -1px;">{siteConfig.name}</span>
+                            )}
+                        </div>
+                        <p>{siteConfig.footer?.description || siteConfig.description}</p>
+                        <ul>
+                            {siteConfig.social?.facebook && (
+                                <li><a href={siteConfig.social.facebook}><i class="ti-facebook"></i></a></li>
+                            )}
+                            {siteConfig.social?.twitter && (
+                                <li><a href={siteConfig.social.twitter}><i class="ti-twitter-alt"></i></a></li>
+                            )}
+                            {siteConfig.social?.instagram && (
+                                <li><a href={siteConfig.social.instagram}><i class="ti-instagram"></i></a></li>
+                            )}
+                            {siteConfig.social?.youtube && (
+                                <li><a href={siteConfig.social.youtube}><i class="ti-youtube"></i></a></li>
+                            )}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
+                    <div class="widget wpo-service-link-widget">
+                        <div class="widget-title">
+                            <h3>Contato</h3>
+                        </div>
+                        <div class="contact-ft">
+                            <ul>
+                                {siteConfig.address && (
+                                    <li><i class="fi flaticon-location"></i>{siteConfig.address}</li>
+                                )}
+                                {siteConfig.phone && (
+                                    <li><i class="fi flaticon-phone-call"></i>{siteConfig.phone}</li>
+                                )}
+                                {siteConfig.contact?.email && (
+                                    <li><i class="fi flaticon-send"></i>{siteConfig.contact.email}</li>
+                                )}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-lg-4 col-md-6 col-sm-12 col-12">
+                    <div class="widget link-widget">
+                        <div class="widget-title">
+                            <h3>Serviços</h3>
+                        </div>
+                        <ul>
+                            <li><a href="/servicos/kitchen-plumbing">Desentupimento de Pia</a></li>
+                            <li><a href="/servicos/gas-line">Esgoto e Galerias</a></li>
+                            <li><a href="/servicos/water-line">Desentupimento de Ralo</a></li>
+                            <li><a href="/servicos/bathroom">Vaso Sanitário</a></li>
+                            <li><a href="/servicos/basement">Caixa de Gordura</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div> <!-- end container -->
+    </div>
+    <div class="wpo-lower-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <p class="copyright"> Copyright &copy; {currentYear} {siteConfig.footer?.copyright || siteConfig.name}. Todos os direitos reservados.
+                        <span class="mx-2">|</span>
+                        <a href="/privacidade" style="color: inherit; text-decoration: underline;">Privacidade</a>
+                        <span class="mx-2">|</span>
+                        <a href="/termos" style="color: inherit; text-decoration: underline;">Termos</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,28 @@
+---
+import { readData } from '../lib/readData';
+import PlumcoLayout from '../layouts/PlumcoLayout.astro';
+import PlumcoHero from '../components/sections/plumco/PlumcoHero.astro';
+import PlumcoFeatures from '../components/sections/plumco/PlumcoFeatures.astro';
+import PlumcoServices from '../components/sections/plumco/PlumcoServices.astro';
+import PlumcoFunFacts from '../components/sections/plumco/PlumcoFunFacts.astro';
+
+import PlumcoTeam from '../components/sections/plumco/PlumcoTeam.astro';
+import PlumcoBooking from '../components/sections/plumco/PlumcoBooking.astro';
+import PlumcoTestimonials from '../components/sections/plumco/PlumcoTestimonials.astro';
+import PlumcoLatestBlog from '../components/sections/plumco/PlumcoLatestBlog.astro';
+
+const data = readData('services.json');
+const services = data.items || [];
+const homeData = readData('home.json');
+---
+
+<PlumcoLayout>
+    <PlumcoHero slides={homeData.hero?.slides} />
+    <PlumcoFeatures items={homeData.features?.items} />
+    <PlumcoServices {...homeData.services} />
+    <PlumcoFunFacts {...homeData.funFacts} />
+    <PlumcoTeam {...homeData.team} />
+    <PlumcoBooking {...homeData.booking} />
+    <PlumcoTestimonials {...homeData.testimonials} />
+    <PlumcoLatestBlog {...homeData.latestBlog} />
+</PlumcoLayout>

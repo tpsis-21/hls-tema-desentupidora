@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Henry Barton",
+        "role": "Team Leader",
+        "image": "/assets/images/team/1.jpg"
+    },
+    {
+        "name": "Mattie Washington",
+        "role": "Junior Member",
+        "image": "/assets/images/team/2.jpg"
+    },
+    {
+        "name": "Winifred Harmon",
+        "role": "Team Leader",
+        "image": "/assets/images/team/3.jpg"
+    },
+    {
+        "name": "Shelia Lawrence",
+        "role": "Senior Member",
+        "image": "/assets/images/team/4.jpg"
+    }
+]

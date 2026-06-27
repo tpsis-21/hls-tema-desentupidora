@@ -1,0 +1,45 @@
+---
+import { BLOG_BASE } from '../../../lib/postUrl';
+import { getCollection } from 'astro:content';
+
+const { title, subtitle, description } = Astro.props;
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+).slice(0, 3);
+---
+<section class="wpo-blog-section section-padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6">
+                <div class="wpo-section-title-s2">
+                    <span>{title}</span>
+                    <h2>{subtitle}</h2>
+                    <p>{description}</p>
+                </div>
+            </div>
+        </div>
+        <div class="wpo-blog-items">
+            <div class="row">
+                {posts.map((post) => (
+                    <div class="col col-lg-4 col-md-6 col-12">
+                        <div class="wpo-blog-item">
+                            <div class="wpo-blog-img">
+                                <img src={post.data.heroImage || "/assets/images/blog/img-1.jpg"} alt={post.data.title}>
+                            </div>
+                            <div class="wpo-blog-content">
+                                <a class="date" href={`${BLOG_BASE}/${post.slug}`}>{post.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</a>
+                                <h2><a href={`${BLOG_BASE}/${post.slug}`}>{post.data.title}</a></h2>
+                                <ul>
+                                    <li>{post.data.author || "Equipe"}</li>
+                                    <li><a href={`${BLOG_BASE}/${post.slug}`}>Comentários</a></li>
+                                    <li>Compartilhar</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div> <!-- end container -->
+</section>

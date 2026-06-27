@@ -1,0 +1,27 @@
+---
+const { items = [], backgroundImage } = Astro.props;
+---
+<section 
+    class="wpo-fun-fact-section-s2 section-padding"
+    style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : {}}
+>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col col-lg-12">
+                <div class="wpo-fun-fact-grids clearfix">
+                    {items.map((item: any) => (
+                        <div class="grid">
+                            <div class="icon">
+                                <img src={item.icon} alt={item.label}>
+                            </div>
+                            <div class="info">
+                                <h3><span class="odometer" data-count={item.count}>00</span>{item.suffix}</h3>
+                                <p>{item.label}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </div> <!-- end container -->
+</section>

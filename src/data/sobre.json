@@ -1,0 +1,77 @@
+{
+    "hero": {
+        "title": "Sobre Nós",
+        "subtitle": "HISTÓRIA DA EMPRESA",
+        "bgImage": "/assets/images/cms/1774628274760-desentupidora2.jpg"
+    },
+    "about": {
+        "image": "/assets/images/cms/1774638276563-desentupidora2.jpg",
+        "title": "Especialistas em Desentupimento",
+        "content": "Com anos de experiência no mercado, nossa empresa se destaca pela agilidade e eficiência em serviços de desentupimento residenciais e comerciais. Utilizamos tecnologia de ponta para garantir resultados duradouros sem danos estruturais.",
+        "signatureImage": "/assets/images/signeture.png",
+        "authorName": "Gustavo Silva",
+        "authorRole": "Diretor Executivo"
+    },
+    "services": {
+        "title": "Nossos Diferenciais",
+        "description": "Na nossa empresa, combinamos técnica apurada e atendimento personalizado para resolver seus problemas hidráulicos de forma definitiva.",
+        "items": [
+            {
+                "title": "Atendimento 24h",
+                "description": "Estamos prontos para atender emergências a qualquer hora do dia ou da noite.",
+                "icon": "Clock"
+            },
+            {
+                "title": "Equipe Técnica",
+                "description": "Profissionais treinados e certificados para garantir a melhor execução do serviço.",
+                "icon": "Users"
+            },
+            {
+                "title": "Garantia Total",
+                "description": "Oferecemos garantia em todos os serviços prestados, assegurando sua tranquilidade.",
+                "icon": "Verified"
+            }
+        ]
+    },
+    "funFacts": {
+        "backgroundImage": "/assets/images/cms/1774624699618-desentupidora.webp",
+        "items": [
+            {
+                "count": "2000",
+                "label": "Clientes Satisfeitos",
+                "icon": "/assets/images/icon/9.png"
+            },
+            {
+                "count": "15",
+                "label": "Anos de Experiência",
+                "icon": "/assets/images/icon/10.png",
+                "suffix": "+"
+            },
+            {
+                "count": "24",
+                "label": "Atendimento",
+                "icon": "/assets/images/icon/11.png",
+                "suffix": "/7"
+            },
+            {
+                "count": "100",
+                "label": "Garantia Técnica",
+                "icon": "/assets/images/icon/12.png",
+                "suffix": "%"
+            }
+        ]
+    },
+    "testimonials": {
+        "title": "DEPOIMENTOS",
+        "subtitle": "Histórias de Sucesso",
+        "description": "Confira os relatos de quem já utilizou nossos serviços e atestou nossa qualidade e compromisso.",
+        "items": [
+            {
+                "name": "Ricardo Santos",
+                "role": "Morador em Pinheiros",
+                "text": "Atendimento impecável! Tive um problema urgente com o esgoto no meio da madrugada e a equipe chegou em 30 minutos. Resolveram tudo com muita limpeza e educação. Recomendo fortemente!",
+                "image": "/assets/images/cms/1774625361705-7033146-perfil-icone-login-head-icon-vetor.jpg"
+            }
+        ]
+    }
+}

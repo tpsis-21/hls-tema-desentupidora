@@ -1,0 +1,32 @@
+---
+import { readData } from '../../lib/readData';
+
+const { sidebar } = Astro.props;
+const data = readData('services.json');
+const services = data.items || [];
+---
+<div class="blog-sidebar">
+    <div class="widget search-widget">
+        <form>
+            <div>
+                <input type="text" class="form-control" placeholder="Buscar serviço..">
+                <button type="submit"><i class="ti-search"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="widget category-widget">
+        <h3>Serviços</h3>
+        <ul>
+            {services.map((service: any) => (
+                <li><a href={`/servicos/${service.slug}`}>{service.title}</a></li>
+            ))}
+        </ul>
+    </div>
+    {sidebar && (
+        <div class="wpo-contact-widget widget">
+            <h2 set:html={sidebar.title}></h2>
+            <p>{sidebar.description}</p>
+            <a href={sidebar.link || "/contato"}>{sidebar.buttonText || "Fale Conosco"}</a>
+        </div>
+    )}
+</div>

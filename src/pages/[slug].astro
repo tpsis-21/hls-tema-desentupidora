@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import PlumcoLayout from '../layouts/PlumcoLayout.astro';
+import PlumcoSidebar from '../components/layout/PlumcoSidebar.astro';
+import { readData } from '../lib/readData';
+import PostAfterPlugins from '../plugins/_slots/PostAfterPlugins.astro';
+import PostSchemaPlugins from '../plugins/_slots/PostSchemaPlugins.astro';
+
+const sobreData = readData('sobre.json');
+
+export async function getStaticPaths() {
+    const RESERVED = new Set(['blog', 'sobre', 'contato', 'categoria', 'admin', 'login', 'registrar', 'politica-privacidade', 'termos', 'configuracoes']);
+    const siteConfig = readData('siteConfig.json', {}) as any;
+    if (siteConfig.postUrlPrefix === 'blog') return [];
+    const posts = await getCollection('blog');
+    return posts
+        .filter(p => !p.data.draft && !RESERVED.has(p.slug))
+        .map(post => ({ params: { slug: post.slug }, props: post }));
+}
+const post = Astro.props;
+const { Content } = await post.render();
+
+const authors = readData('authors.json', []) as any[];
+const authorData = authors.find((a: any) => a.id === post.data.author) || { name: post.data.author };
+const siteConfig = readData('siteConfig.json', {}) as any;
+const postUrl = `${siteConfig.url || Astro.url.origin}/${post.slug}`;
+---
+
+<PlumcoLayout title={post.data.title}>
+    <PostSchemaPlugins
+      title={post.data.title}
+      description={post.data.description || ''}
+      url={postUrl}
+      image={post.data.heroImage}
+      datePublished={post.data.pubDate instanceof Date ? post.data.pubDate.toISOString() : post.data.pubDate}
+      authorName={authorData?.name}
+      category={post.data.category}
+    />
+    <section class="wpo-page-title" style={`background-image: url(${sobreData.hero.bgImage}); background-position: center center; background-size: cover;`}>
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>{post.data.title}</h2>
+                        <ol class="wpo-breadcumb-wrap">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/blog">Blog</a></li>
+                            <li>Post</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="wpo-blog-single-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 col-12">
+                    <div class="wpo-blog-content">
+                        <div class="post format-standard-image">
+                            {post.data.heroImage && (
+                                <div class="entry-media">
+                                    <img src={post.data.heroImage} alt={post.data.title}>
+                                </div>
+                            )}
+                            <div class="entry-meta">
+                                <ul>
+                                    <li><i class="fi flaticon-user"></i> By {post.data.author || "Admin"}</li>
+                                    <li class="post-date"><i class="fi flaticon-calendar"></i> {post.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}</li>
+                                </ul>
+                            </div>
+                            <h2>{post.data.title}</h2>
+                            <div class="entry-details">
+                                <Content />
+                            </div>
+                            <PostAfterPlugins currentSlug={post.slug} category={post.data.category || ''} />
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-lg-4 col-12">
+                    <PlumcoSidebar postAuthor={post.data.author} />
+                </div>
+            </div>
+        </div>
+    </section>
+</PlumcoLayout>

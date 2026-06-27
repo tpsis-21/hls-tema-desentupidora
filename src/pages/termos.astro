@@ -1,0 +1,59 @@
+---
+import PlumcoLayout from '../layouts/PlumcoLayout.astro';
+import { readData } from '../lib/readData';
+const siteConfig = readData('siteConfig.json');
+const termsData = readData('terms.json');
+const sobreData = readData('sobre.json');
+const heroBg = sobreData.hero?.bgImage || "/assets/images/page-title.jpg";
+---
+
+<PlumcoLayout title={termsData.title} description={`Leia nossos ${termsData.title.toLowerCase()} e condições de uso.`}>
+    <!-- start wpo-page-title -->
+    <section class="wpo-page-title" style={`background-image: url(${heroBg}); background-position: center center; background-size: cover;`}>
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>{termsData.title}</h2>
+                        <ol class="wpo-breadcumb-wrap">
+                            <li><a href="/">Home</a></li>
+                            <li>Legal</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end page-title -->
+
+    <!-- start wpo-terms-section -->
+    <section class="wpo-contact-pg-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-10 offset-lg-1">
+                    <div class="wpo-contact-title" style="text-align: left; margin-bottom: 30px;">
+                        <h2 style="font-size: 2rem; margin-bottom: 10px;">{termsData.title}</h2>
+                        {termsData.lastUpdated && (
+                            <p class="text-muted" style="font-size: 0.9rem;">Última atualização: {termsData.lastUpdated}</p>
+                        )}
+                    </div>
+
+                    <div class="wpo-contact-form-area" style="padding: 40px; background: #fff; border: 1px solid #ebebeb; border-radius: 10px; margin-bottom: 100px;">
+                        <div class="legal-content" style="color: #666; line-height: 1.8;">
+                            {termsData.content?.map(section => (
+                                <div class="mb-5">
+                                    <h4 style="color: #222; margin-bottom: 15px; font-weight: 700;">{section.title}</h4>
+                                    <p>{section.text}</p>
+                                </div>
+                            ))}
+
+                            <div class="mt-5 pt-4 border-top">
+                                <p>Para dúvidas sobre estes termos, entre em <a href="/contato" class="text-primary font-weight-bold">contato conosco</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- end container -->
+    </section>
+</PlumcoLayout>

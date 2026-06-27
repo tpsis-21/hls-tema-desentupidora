@@ -1,0 +1,49 @@
+---
+interface Slide {
+  title: string;
+  subtitle: string;
+  bgImage: string;
+  btnText: string;
+  btnLink: string;
+}
+
+interface Props {
+  slides?: Slide[];
+}
+
+const { slides = [] } = Astro.props;
+---
+
+<section class="wpo-hero-slider">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {slides.map((slide) => (
+                <div class="swiper-slide">
+                    <div class="slide-inner slide-bg-image" data-background={slide.bgImage} style={`background-image: url(${slide.bgImage})`}>
+                        <div class="gradient-overlay"></div>
+                        <div class="container">
+                            <div class="slide-content">
+                                <div data-swiper-parallax="300" class="slide-title">
+                                    <h2>{slide.title}</h2>
+                                </div>
+                                <div data-swiper-parallax="400" class="slide-text">
+                                    <p>{slide.subtitle}</p>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div data-swiper-parallax="500" class="slide-btns">
+                                    <a href={slide.btnLink} class="btn theme-btn">{slide.btnText}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end slide-inner -->
+                </div> <!-- end swiper-slide -->
+            ))}
+        </div>
+        <!-- end swiper-wrapper -->
+
+        <!-- swipper controls -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</section>

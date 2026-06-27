@@ -1,0 +1,39 @@
+---
+const { title, subtitle, description, items = [] } = Astro.props;
+---
+<section class="wpo-testimonials-section section-padding">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6">
+                <div class="wpo-section-title-s2">
+                    <span>{title}</span>
+                    <h2>{subtitle}</h2>
+                </div>
+                <p>{description}</p>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-xl-12 col-lg-12">
+                <div class="testimonials-wrapper owl-carousel">
+                    {items.map((testi: any) => (
+                        <div class="testimonials-item">
+                            <div class="testimonials-item-top">
+                                <p>{testi.text}</p>
+                            </div>
+                            <div class="testimonials-item-bottom">
+                                <div class="testimonials-item-bottom-author">
+                                    <img src={testi.image} alt={testi.name}>
+                                </div>
+                                <div class="testimonials-item-bottom-author-text">
+                                    <h3>{testi.name}</h3>
+                                    <span>{testi.role}</span>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+        </div> <!-- end row -->
+    </div>
+</section>

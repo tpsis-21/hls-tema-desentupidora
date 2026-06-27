@@ -1,0 +1,116 @@
+---
+import PlumcoLayout from '../../layouts/PlumcoLayout.astro';
+import PlumcoServiceSidebar from '../../components/layout/PlumcoServiceSidebar.astro';
+import { readData } from '../../lib/readData';
+
+export async function getStaticPaths() {
+	const data = readData('services.json');
+    const services = data.items || [];
+	return services.map((service: any) => ({
+		params: { slug: service.slug },
+		props: service,
+	}));
+}
+const service = Astro.props;
+const sobreData = readData('sobre.json');
+const heroBg = sobreData.hero?.bgImage || "/assets/images/page-title.jpg";
+---
+
+<PlumcoLayout title={service.title}>
+    <!-- start wpo-page-title -->
+    <section class="wpo-page-title" style={`background-image: url(${heroBg}); background-position: center center; background-size: cover;`}>
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>{service.title}</h2>
+                        <ol class="wpo-breadcumb-wrap">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/servicos">Serviços</a></li>
+                            <li>Detalhe</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </section>
+    <!-- end page-title -->
+
+    <div class="wpo-project-details-area wpo-service-details section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 order-lg-1 order-md-2">
+                    <PlumcoServiceSidebar sidebar={service.sidebar} />
+                </div>
+                <div class="col-lg-8 order-lg-2 order-md-1">
+                    <div class="wpo-minimals-wrap">
+                        <div class="minimals-img">
+                            <img src={service.image || "/assets/images/service-single/1.jpg"} alt={service.title}>
+                        </div>
+                    </div>
+                    <div class="wpo-p-details-section">
+                        <h4>{service.title}</h4>
+                        <p>{service.fullContent || service.description}</p>
+                        
+                        {(service.image2 || service.image3) && (
+                            <div class="row">
+                                {service.image2 && (
+                                    <div class="col-md-6 col-sm-6 col-12">
+                                        <div class="wpo-p-details-img">
+                                            <img src={service.image2} alt={service.title}>
+                                        </div>
+                                    </div>
+                                )}
+                                {service.image3 && (
+                                    <div class="col-md-6 col-sm-6 col-12">
+                                        <div class="wpo-p-details-img">
+                                            <img src={service.image3} alt={service.title}>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                        <p>Nossos serviços são realizados com o máximo de cuidado para não danificar suas tubulações. Utilizamos tecnologia de hidrojateamento e máquinas rotativas que removem a obstrução sem a necessidade de quebrar pisos ou paredes na maioria dos casos.</p>
+                    </div>
+                    {service.faqs && service.faqs.length > 0 && (
+                        <div class="wpo-faq-section">
+                            <h4>Perguntas Frequentes</h4>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-12">
+                                    <div class="accordion" id="accordionExample">
+                                        {service.faqs.map((faq: any, index: number) => (
+                                            <div class="accordion-item">
+                                                <h3 class="accordion-header" id={`heading${index}`}>
+                                                    <button 
+                                                        class={`accordion-button ${index !== 0 ? 'collapsed' : ''}`} 
+                                                        type="button" 
+                                                        data-bs-toggle="collapse" 
+                                                        data-bs-target={`#collapse${index}`} 
+                                                        aria-expanded={index === 0 ? "true" : "false"} 
+                                                        aria-controls={`collapse${index}`}
+                                                    >
+                                                        {faq.question}
+                                                    </button>
+                                                </h3>
+                                                <div 
+                                                    id={`collapse${index}`} 
+                                                    class={`accordion-collapse collapse ${index === 0 ? 'show' : ''}`} 
+                                                    aria-labelledby={`heading${index}`} 
+                                                    data-bs-parent="#accordionExample"
+                                                >
+                                                    <div class="accordion-body">
+                                                        <p>{faq.answer}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    </div>
+</PlumcoLayout>

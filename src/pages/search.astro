@@ -1,0 +1,107 @@
+---
+import PlumcoLayout from '../layouts/PlumcoLayout.astro';
+import PlumcoSidebar from '../components/layout/PlumcoSidebar.astro';
+import { getCollection } from 'astro:content';
+import { BLOG_BASE } from '../lib/postUrl';
+import { readData } from '../lib/readData';
+
+const posts = (await getCollection('blog'))
+    .filter(p => !p.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const items = posts.map(p => ({
+    slug: p.slug,
+    title: p.data.title,
+    description: p.data.description || '',
+    heroImage: p.data.heroImage || '',
+    category: p.data.category || '',
+    author: p.data.author || 'Admin',
+    pubDate: p.data.pubDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }),
+}));
+
+const sobreData = readData('sobre.json');
+---
+
+<PlumcoLayout title="Buscar">
+    <section class="wpo-page-title" style={`background-image: url(${sobreData.hero?.bgImage || ''}); background-position: center center; background-size: cover;`}>
+        <div class="container">
+            <div class="row">
+                <div class="col col-xs-12">
+                    <div class="wpo-breadcumb-wrap">
+                        <h2>Buscar</h2>
+                        <ol class="wpo-breadcumb-wrap">
+                            <li><a href="/">Home</a></li>
+                            <li>Buscar</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="wpo-blog-pg-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8">
+                    <div class="wpo-blog-content">
+                        <form id="search-form" class="d-flex" style="gap:0.5rem; margin-bottom:2rem;">
+                            <input id="q-input" type="search" name="q" placeholder="Digite sua busca..." style="flex:1; padding:0.75rem 1rem; border:1px solid #ddd; border-radius:4px; font-size:1rem;" />
+                            <button type="submit" style="background:#2972d6; color:#fff; border:none; padding:0.75rem 1.5rem; border-radius:4px; font-weight:600; cursor:pointer;">Buscar</button>
+                        </form>
+                        <p id="result-info" style="color:#888; font-size:0.9rem; margin-bottom:1.5rem;"></p>
+                        <div id="search-results"></div>
+                        <div id="empty-state" style="display:none; padding:3rem; text-align:center; background:#f8f9fa; border-radius:0.5rem;">
+                            <p style="margin:0;">Nenhum artigo encontrado.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-lg-4">
+                    <PlumcoSidebar />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script id="search-data" type="application/json" set:html={JSON.stringify(items)} />
+    <script type="module" define:vars={{ blogBase: BLOG_BASE }}>
+        const items = JSON.parse(document.getElementById('search-data').textContent || '[]');
+        const $r = document.getElementById('search-results');
+        const $e = document.getElementById('empty-state');
+        const $i = document.getElementById('result-info');
+        const $q = document.getElementById('q-input');
+        const $f = document.getElementById('search-form');
+        const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+        function search(q) {
+            const nq = norm(q.trim());
+            if (!nq) return [];
+            return items.filter(i => norm(i.title).includes(nq) || norm(i.description).includes(nq) || norm(i.category).includes(nq));
+        }
+        function render(filtered, q) {
+            if (!q.trim()) { $i.textContent = 'Digite um termo para buscar.'; $r.innerHTML = ''; $e.style.display = 'none'; return; }
+            $i.textContent = `${filtered.length} resultado${filtered.length === 1 ? '' : 's'} para "${q}"`;
+            if (!filtered.length) { $r.innerHTML = ''; $e.style.display = 'block'; return; }
+            $e.style.display = 'none';
+            $r.innerHTML = filtered.map(p => `
+                <div class="post format-standard-image">
+                    ${p.heroImage ? `<div class="entry-media"><a href="${blogBase}/${p.slug}"><img src="${esc(p.heroImage)}" alt="${esc(p.title)}" loading="lazy"/></a></div>` : ''}
+                    <div class="entry-meta">
+                        <ul>
+                            <li><i class="fi flaticon-user"></i> By ${esc(p.author)}</li>
+                            <li class="post-date"><i class="fi flaticon-calendar"></i> ${esc(p.pubDate)}</li>
+                        </ul>
+                    </div>
+                    <div class="entry-details">
+                        <h3><a href="${blogBase}/${p.slug}">${esc(p.title)}</a></h3>
+                        <p>${esc(p.description)}</p>
+                        <a href="${blogBase}/${p.slug}" class="read-more">LEIA MAIS...</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+        const params = new URLSearchParams(location.search);
+        const q0 = params.get('q') || '';
+        $q.value = q0; render(search(q0), q0);
+        $f.addEventListener('submit', e => { e.preventDefault(); const q = $q.value; const url = new URL(location.href); url.searchParams.set('q', q); history.replaceState(null, '', url); render(search(q), q); });
+    </script>
+</PlumcoLayout>

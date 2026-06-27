@@ -1,0 +1,164 @@
+{
+    "hero": {
+        "slides": [
+            {
+                "title": "Serviço de Desentupimento Profissional 24 Horas.",
+                "subtitle": "Atendimento rápido para residências, condomínios e empresas. Equipamentos modernos e equipe qualificada.",
+                "bgImage": "/assets/images/cms/1774622545829-desentupidora.webp",
+                "btnText": "SOLICITAR VISITA",
+                "btnLink": "/contato"
+            }
+        ]
+    },
+    "features": {
+        "items": [
+            {
+                "title": "Agende Online",
+                "icon": "CalendarClock"
+            },
+            {
+                "title": "Nós Chegamos",
+                "icon": "Truck",
+                "active": true
+            },
+            {
+                "title": "Problema Resolvido",
+                "icon": "Wrench"
+            }
+        ]
+    },
+    "services": {
+        "title": "Melhores Serviços que Oferecemos",
+        "description": "Oferecemos as melhores soluções em desentupimento com rapidez, limpeza e garantia total de satisfação para sua casa ou empresa.",
+        "items": [
+            {
+                "title": "Desentupimento de Pia",
+                "description": "Equipamentos que removem gordura e detritos sem danificar a tubulação.",
+                "icon": "Sparkles",
+                "link": "/servicos/kitchen-plumbing"
+            },
+            {
+                "title": "Esgoto e Galerias",
+                "description": "Limpeza técnica de rede de esgoto com hidrojateamento de alta pressão.",
+                "icon": "HardHat",
+                "link": "/servicos/gas-line"
+            },
+            {
+                "title": "Desentupimento de Ralo",
+                "description": "Remoção de obstruções em ralos de banheiros, quintais e áreas de serviço.",
+                "icon": "Bath",
+                "link": "/servicos/water-line"
+            },
+            {
+                "title": "Vaso Sanitário",
+                "description": "Desentupimento rápido de vasos sanitários com higiene e segurança.",
+                "icon": "Droplets",
+                "link": "/servicos/bathroom"
+            },
+            {
+                "title": "Caixa de Gordura",
+                "description": "Limpeza e desobstrução de caixas de gordura residenciais e comerciais.",
+                "icon": "Wrench",
+                "link": "/servicos/basement"
+            },
+            {
+                "title": "Hidrojateamento",
+                "description": "Lavagem de alta pressão para desobstrução total de tubulações complexas.",
+                "icon": "Waves",
+                "link": "/servicos/remodeling"
+            }
+        ]
+    },
+    "funFacts": {
+        "backgroundImage": "/assets/images/cms/1774624699618-desentupidora.webp",
+        "items": [
+            {
+                "count": "2000",
+                "label": "Clientes Satisfeitos",
+                "icon": "/assets/images/icon/9.png"
+            },
+            {
+                "count": "15",
+                "label": "Anos de Experiência",
+                "icon": "/assets/images/icon/10.png",
+                "suffix": "+"
+            },
+            {
+                "count": "24",
+                "label": "Atendimento",
+                "icon": "/assets/images/icon/11.png",
+                "suffix": "/7"
+            },
+            {
+                "count": "100",
+                "label": "Garantia Técnica",
+                "icon": "/assets/images/icon/12.png",
+                "suffix": "%"
+            }
+        ]
+    },
+    "team": {
+        "title": "NOSSA EQUIPE",
+        "subtitle": "Nossos Especialistas Qualificados.",
+        "showSection": false,
+        "items": [
+            {
+                "name": "Henry Barton",
+                "role": "Team Leader",
+                "image": "/assets/images/team/1.jpg"
+            },
+            {
+                "name": "Mattie Washington",
+                "role": "Junior Member",
+                "image": "/assets/images/team/2.jpg"
+            },
+            {
+                "name": "Winifred Harmon",
+                "role": "Team Leader",
+                "image": "/assets/images/team/3.jpg"
+            },
+            {
+                "name": "Shelia Lawrence",
+                "role": "Senior Member",
+                "image": "/assets/images/team/4.jpg"
+            }
+        ]
+    },
+    "booking": {
+        "subtitle": "AGENDAMENTO ONLINE",
+        "title": "Agende sua Visita Técnica Agora.",
+        "videoUrl": "https://www.youtube.com/embed/jAPsZ7_4bxg",
+        "image": "/assets/images/cms/1774623601494-desentupidora.webp",
+        "imageS2": "/assets/images/contact.png"
+    },
+    "testimonials": {
+        "title": "DEPOIMENTOS",
+        "subtitle": "O Que Nossos Clientes Dizem.",
+        "description": "Veja o que nossos clientes dizem sobre a agilidade e eficiência dos nossos serviços de desentupimento em toda a região.",
+        "items": [
+            {
+                "name": "Ricardo Santos",
+                "role": "Morador em Pinheiros",
+                "text": "Atendimento impecável! Tive um problema urgente com o esgoto no meio da madrugada e a equipe chegou em 30 minutos. Resolveram tudo com muita limpeza e educação. Recomendo fortemente!",
+                "image": "/assets/images/cms/1774625361705-7033146-perfil-icone-login-head-icon-vetor.jpg"
+            },
+            {
+                "name": "Mariana Oliveira",
+                "role": "Proprietária de Restaurante",
+                "text": "Sempre conto com eles para a limpeza da caixa de gordura do meu restaurante. São ágeis, profissionais e o preço é justo. Nunca mais tive problemas com lentidão nas pias. Nota 10!",
+                "image": "/assets/images/cms/1774625364379-7033146-perfil-icone-login-head-icon-vetor.jpg"
+            },
+            {
+                "name": "Carlos Eduardo",
+                "role": "Síndico de Condomínio",
+                "text": "Contratei para um desentupimento complexo em uma das torres do condomínio. Usaram equipamentos modernos e não precisaram quebrar nada. Serviço técnico de altíssima qualidade.",
+                "image": "/assets/images/cms/1774625367473-7033146-perfil-icone-login-head-icon-vetor.jpg"
+            }
+        ]
+    },
+    "latestBlog": {
+        "title": "CONTEÚDO E DICAS",
+        "subtitle": "Blog e Notícias Recentes.",
+        "description": "Acompanhe nosso blog e fique por dentro das melhores dicas para evitar entupimentos e manter a saúde da sua rede hidráulica."
+    }
+}

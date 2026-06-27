@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Ricardo Santos",
+        "role": "Morador em Pinheiros",
+        "text": "Atendimento impecável! Tive um problema urgente com o esgoto no meio da madrugada e a equipe chegou em 30 minutos. Resolveram tudo com muita limpeza e educação. Recomendo fortemente!",
+        "image": "/assets/images/testimonial/img-1.jpg"
+    },
+    {
+        "name": "Mariana Oliveira",
+        "role": "Proprietária de Restaurante",
+        "text": "Sempre conto com eles para a limpeza da caixa de gordura do meu restaurante. São ágeis, profissionais e o preço é justo. Nunca mais tive problemas com lentidão nas pias. Nota 10!",
+        "image": "/assets/images/testimonial/img-2.jpg"
+    },
+    {
+        "name": "Carlos Eduardo",
+        "role": "Síndico de Condomínio",
+        "text": "Contratei para um desentupimento complexo em uma das torres do condomínio. Usaram equipamentos modernos e não precisaram quebrar nada. Serviço técnico de altíssima qualidade.",
+        "image": "/assets/images/testimonial/img-3.jpg"
+    }
+]

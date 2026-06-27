@@ -1,0 +1,293 @@
+---
+import { readData } from '../lib/readData';
+import HeadPlugins from '../plugins/_slots/HeadPlugins.astro';
+import BodyEndPlugins from '../plugins/_slots/BodyEndPlugins.astro';
+import HeaderPlumco from '../components/layout/HeaderPlumco.astro';
+import FooterPlumco from '../components/layout/FooterPlumco.astro';
+
+const siteConfig = readData('siteConfig.json');
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title = siteConfig.name,
+  description = siteConfig.description,
+  image = '',
+  type = 'website',
+} = Astro.props;
+
+const formattedTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
+
+// Função para converter Hexadecimal em RGB para uso em rgba()
+const hexToRgb = (hex: string) => {
+  const cleanHex = hex.replace('#', '');
+  const r = parseInt(cleanHex.slice(0, 2), 16);
+  const g = parseInt(cleanHex.slice(2, 4), 16);
+  const b = parseInt(cleanHex.slice(4, 6), 16);
+  return `${r}, ${g}, ${b}`;
+};
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="wpOceans">
+    <link rel="shortcut icon" type="image/png" href={siteConfig.favicon || "/assets/images/favicon.png"}>
+    <title>{formattedTitle}</title>
+    <meta name="description" content={description}>
+
+    <!-- CSS do Template -->
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/css/themify-icons.css" rel="stylesheet">
+    <link href="/assets/css/flaticon.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/owl.carousel.css" rel="stylesheet">
+    <link href="/assets/css/owl.theme.css" rel="stylesheet">
+    <link href="/assets/css/slick.css" rel="stylesheet">
+    <link href="/assets/css/slick-theme.css" rel="stylesheet">
+    <link href="/assets/css/swiper.min.css" rel="stylesheet">
+    <link href="/assets/css/owl.transitions.css" rel="stylesheet">
+    <link href="/assets/css/jquery.fancybox.css" rel="stylesheet">
+    <link href="/assets/css/odometer-theme-default.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <!-- Cores Dinâmicas do CMS -->
+    <style is:global define:vars={{
+        primaryColor: siteConfig.theme?.primary || '#0052da',
+        accentColor: siteConfig.theme?.accent || '#FFA387',
+        darkColor: siteConfig.theme?.dark || '#0041ac',
+        textColor: siteConfig.theme?.text || '',
+        headingColor: siteConfig.theme?.heading || '',
+        primaryRgb: hexToRgb(siteConfig.theme?.primary || '#0052da'),
+        accentRgb: hexToRgb(siteConfig.theme?.accent || '#FFA387'),
+        logoHeight: `${siteConfig.logoHeight || 60}px`,
+    }}>
+        :root {
+            --primary-color: var(--primaryColor);
+            --accent-color: var(--accentColor);
+            --dark-color: var(--darkColor);
+            --primary-rgb: var(--primaryRgb);
+            --accent-rgb: var(--accentRgb);
+            --logo-height: var(--logoHeight);
+        }
+
+        /* RESTRIÇÃO DE TAMANHO DO LOGO */
+        .navbar-brand img, .wpo-upper-footer .logo img {
+            max-height: var(--logo-height) !important;
+            width: auto !important;
+            object-fit: contain !important;
+        }
+
+        /* Cores customizadas de texto e títulos (aplicadas só se setadas) */
+        body.has-custom-text, body.has-custom-text p, body.has-custom-text .wpo-section-content, body.has-custom-text li:not(.post-date) { color: var(--textColor) !important; }
+        body.has-custom-heading h1, body.has-custom-heading h2, body.has-custom-heading h3, body.has-custom-heading h4, body.has-custom-heading h5, body.has-custom-heading h6 { color: var(--headingColor) !important; }
+
+        /* Ocultar data de publicação quando hidePostDate=true (classe no body) */
+        body.hide-post-dates .post-date { display: none !important; }
+
+        /* CONFIGURAÇÕES GLOBAIS INTELIGENTES (RGB + DESIGN ORIGINAL) */
+        
+        /* 1. Header & Navegação - Formato de Pílula e Contraste Branco (desktop) */
+        .topbar { background: var(--primary-color) !important; color: #fff; }
+        .topbar .contact-intro ul li, .topbar .contact-info ul li a { color: #fff !important; }
+        .topbar .contact-intro ul li i, .topbar .contact-info ul li a i { color: #fff !important; }
+        
+        @media (min-width: 992px) {
+        .wpo-site-header .navigation .nav > li > a { 
+            position: relative; 
+            padding: 10px 25px !important; 
+            margin: 20px 5px !important; 
+            border-radius: 50px; 
+            transition: all 0.3s;
+            color: #232f4b !important;
+        }
+
+        /* Hover/Active: SEMPRE BRANCO SOBRE FUNDO COLORIDO */
+        .wpo-site-header .navigation .nav > li > a:hover,
+        .wpo-site-header .navigation .nav > li.active > a,
+        .wpo-site-header .navigation .nav > li.current-menu-item > a,
+        .wpo-site-header .navigation .nav > li.menu-item-has-children:hover > a { 
+            background: var(--primary-color) !important;
+            color: #fff !important;
+            box-shadow: 0px 4px 15px rgba(var(--primary-rgb), 0.2);
+        }
+        
+        .wpo-site-header .navigation .nav > li .sub-menu { border-top: 3px solid var(--primary-color); }
+        .wpo-site-header .navigation .nav > li .sub-menu li a { background: transparent !important; color: #232f4b !important; margin: 0 !important; padding: 10px 20px !important; }
+        .wpo-site-header .navigation .nav > li .sub-menu li a:hover { color: var(--primary-color) !important; }
+        }
+
+        /* Menu mobile — fundo escuro exige texto claro (WCAG / SEO) */
+        @media (max-width: 991px) {
+        .wpo-site-header #navbar .nav > li > a,
+        .wpo-site-header #navbar > ul > li > a {
+            color: #fff !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+        }
+        .wpo-site-header #navbar .nav > li > a:hover,
+        .wpo-site-header #navbar > ul > li > a:hover,
+        .wpo-site-header #navbar > ul .menu-item-has-children > a:hover,
+        .wpo-site-header #navbar > ul .menu-item-has-children > a.active {
+            color: #fff !important;
+            background: rgba(255, 255, 255, 0.12) !important;
+        }
+        .wpo-site-header #navbar .sub-menu li a {
+            color: #e5e5e5 !important;
+            background: transparent !important;
+        }
+        .wpo-site-header #navbar .sub-menu li a:hover {
+            color: #fff !important;
+        }
+        }
+
+        .navbar-toggler { background: var(--primary-color) !important; }
+
+        /* 2. Botões e Ações */
+        .theme-btn, .theme-btn-s2, .theme-btn-s3, .theme-btn-s4, 
+        .wpo-contact-form .submit-area button {
+            background: var(--primary-color) !important;
+            border-color: var(--primary-color) !important;
+            color: #fff !important;
+        }
+        .theme-btn:hover, .theme-btn-s2:hover {
+            background: var(--accent-color) !important;
+            border-color: var(--accent-color) !important;
+        }
+
+        /* 3. Seções e Títulos */
+        .wpo-section-title h2, .wpo-section-title-s2 h2 { color: var(--primary-color) !important; }
+        .wpo-section-title h2:after, .wpo-section-title-s2 h2:after { background: var(--primary-color) !important; }
+
+        /* 4. Transparências e Ícones */
+        .wpo-service-item:hover {
+            background: rgba(var(--primary-rgb), 0.05) !important;
+            border-color: var(--primary-color) !important;
+        }
+        .fi:before, .fi:after, [class^="flaticon-"]:before { color: var(--primary-color); }
+        .wpo-service-item i, .wpo-service-item svg, .visible-icon svg { 
+            color: var(--primary-color) !important; 
+            stroke: var(--primary-color) !important; 
+        }
+        
+        /* Ajuste Específico para Features (Home) */
+        .wpo-features-item.active { background: var(--primary-color) !important; }
+        .wpo-features-item.active i, .wpo-features-item.active svg { color: #fff !important; stroke: #fff !important; }
+        .wpo-features-item.active h4 { color: #fff !important; }
+        .wpo-features-item:not(.active) i, .wpo-features-item:not(.active) svg { color: var(--primary-color) !important; stroke: var(--primary-color) !important; }
+        .wpo-features-item:not(.active) h4 { color: #232f4b !important; } /* Mantém cor de texto original nos laterais */
+        
+        /* Setas Decorativas (Home) */
+        .wpo-features-section-s2 .wpo-features-wrap .angle { 
+            display: block !important; 
+            z-index: 10;
+        }
+
+        /* 5. FunFacts (Estatísticas) */
+        .wpo-fun-fact-grids .grid { background: var(--primary-color) !important; }
+        .wpo-fun-fact-grids .grid .icon i, .wpo-fun-fact-grids .grid .info h3, .wpo-fun-fact-grids .grid .info p { color: #fff !important; }
+
+        /* 6. Footer (Rodapé) - 100% Dinâmico */
+        .wpo-site-footer { background: var(--primary-color) !important; color: #fff !important; }
+        .wpo-site-footer .widget-title h3 { color: #fff !important; }
+        .wpo-site-footer .widget-title h3:before { display: none !important; } /* Remove barra decorativa que buga em contraste */
+        .wpo-site-footer .link-widget ul li a, .wpo-site-footer .contact-ft ul li { color: #fff !important; }
+        .wpo-site-footer .contact-ft ul li i:before { color: #fff !important; } /* Garante visibilidade dos ícones de contato */
+        .wpo-site-footer .about-widget ul li a { background: rgba(255,255,255,0.2) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.3); }
+        .wpo-site-footer .about-widget ul li a:hover { background: #fff !important; color: var(--primary-color) !important; }
+        .wpo-lower-footer { background: rgba(0,0,0,0.15) !important; color: #fff !important; }
+        .wpo-lower-footer .copyright, .wpo-lower-footer .copyright a { color: #fff !important; }
+
+        /* 8. Booking e Inputs — contraste em fundo claro (#f5f8fe) */
+        .wpo-contact-section, .wpo-contact-section-s2 { background: #f5f8fe !important; }
+        .wpo-contact-form-area .form-control { background: #fff !important; border: 1px solid #a3a3a3 !important; color: #171717 !important; }
+        .wpo-contact-section .wpo-contact-form-area .form-group label,
+        .wpo-contact-section-s2 .wpo-contact-form-area .form-group label {
+            color: #171717 !important;
+        }
+        .wpo-contact-section .wpo-contact-form-area .form-control::placeholder,
+        .wpo-contact-section-s2 .wpo-contact-form-area .form-control::placeholder {
+            color: #525252 !important;
+            opacity: 1;
+        }
+        .wpo-contact-section .wpo-contact-form-area select.form-control,
+        .wpo-contact-section-s2 .wpo-contact-form-area select.form-control {
+            color: #171717 !important;
+        }
+        .wpo-contact-section .wpo-contact-section-wrapper .wpo-section-title-s2 span {
+            color: #404040 !important;
+        }
+        .wpo-contact-section .wpo-contact-form-area .border-style { background: var(--primary-color) !important; }
+
+        /* 9. Hero (Gradiente Dinâmico) */
+        .wpo-hero-slider .gradient-overlay { 
+            background: linear-gradient(to right, rgba(var(--primary-rgb), 0.85) 0%, rgba(var(--primary-rgb), 0.4) 50%, transparent 100%) !important;
+            opacity: 1 !important;
+        }
+        .wpo-hero-slider .slide-title h2, .wpo-hero-slider .slide-text p { color: #fff !important; }
+
+        /* 10. Filtros Suaves (Ícones Pequenos) */
+        .grid .icon img, .wpo-service-img img, .topbar img {
+            filter: hue-rotate(180deg) saturate(0.5) brightness(1.1); 
+            opacity: 0.8;
+        }
+        .wpo-contact-img-s2 img, .wpo-contact-img img { filter: none !important; opacity: 1 !important; }
+    </style>
+
+    <!-- Plugins Slot -->
+    <HeadPlugins />
+</head>
+
+<body class={`${siteConfig.hidePostDate ? 'hide-post-dates' : ''} ${siteConfig.theme?.text ? 'has-custom-text' : ''} ${siteConfig.theme?.heading ? 'has-custom-heading' : ''}`.trim()}>
+
+    <div class="page-wrapper">
+        <!-- start preloader -->
+        <div class="preloader">
+            <div class="vertical-centered-box">
+                <div class="content">
+                    <div class="loader-circle"></div>
+                    <div class="loader-line-mask">
+                        <div class="loader-line"></div>
+                    </div>
+                    <img src="/assets/images/preloader.png" alt="">
+                </div>
+            </div>
+        </div>
+        <!-- end preloader -->
+
+        <HeaderPlumco />
+        
+        <slot />
+
+        <FooterPlumco />
+
+    </div>
+    <!-- end of page-wrapper -->
+
+    <!-- All JavaScript files -->
+    <script is:inline src="/assets/js/jquery.min.js"></script>
+    <script is:inline src="/assets/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugins for this template -->
+    <script is:inline src="/assets/js/modernizr.custom.js"></script>
+    <script is:inline src="/assets/js/jquery.dlmenu.js"></script>
+    <script is:inline src="/assets/js/jquery-plugin-collection.js"></script>
+    <!-- Custom script for this template -->
+    <script is:inline src="/assets/js/script.js"></script>
+
+    <!-- Body-end plugins -->
+    <BodyEndPlugins />
+</body>
+
+</html>

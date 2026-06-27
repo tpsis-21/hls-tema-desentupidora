@@ -1,0 +1,40 @@
+---
+import * as LucideIcons from 'lucide-react';
+const { items = [] } = Astro.props;
+---
+<section class="wpo-features-section-s2">
+    <div class="container">
+        <div class="wpo-features-wrap">
+            <div class="row align-items-center justify-content-between">
+                {items.map((item: any, index: number) => {
+                    const IconComponent = (LucideIcons as any)[item.icon];
+                    const isPath = item.icon?.startsWith('/') || item.icon?.startsWith('http');
+                    
+                    return (
+                        <div class="col col-lg-4 col-md-4 col-sm-4 col-6">
+                            <div class={`wpo-features-item ${item.active ? 'active' : ''}`}>
+                                <div class="wpo-features-icon">
+                                    {isPath ? (
+                                        <img src={item.icon} alt={item.title} />
+                                    ) : IconComponent ? (
+                                        <IconComponent size={56} strokeWidth={2} />
+                                    ) : (
+                                        <LucideIcons.HelpCircle size={56} />
+                                    )}
+                                </div>
+                                <div class="wpo-features-text">
+                                    <h4>{item.title}</h4>
+                                </div>
+                            </div>
+                            {index < items.length - 1 && (
+                                <div class="angle">
+                                    <div style="width: 75px; height: 33px; background-color: var(--primary-color); -webkit-mask: url('/assets/images/icon/6.png') no-repeat center / contain; mask: url('/assets/images/icon/6.png') no-repeat center / contain; opacity: 0.8; display: inline-block;"></div>
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    </div>
+</section>

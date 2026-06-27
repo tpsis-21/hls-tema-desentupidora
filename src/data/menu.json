@@ -1,0 +1,32 @@
+{
+    "items": [
+        {
+            "label": "Home",
+            "href": "/"
+        },
+        {
+            "label": "Sobre Nós",
+            "href": "/sobre"
+        },
+        {
+            "label": "Serviços",
+            "href": "/servicos",
+            "showServices": true
+        },
+        {
+            "label": "Blog",
+            "href": "/blog",
+            "showCategories": true
+        },
+        {
+            "label": "Contato",
+            "href": "/contato"
+        }
+    ],
+    "headerExtras": {
+        "schedule": "Seg - Sex || 08:00 - 18:00 (Emergências 24h)",
+        "phone": "(21) 99999-9999",
+        "btnText": "ORÇAMENTO GRÁTIS",
+        "btnHref": "/contato"
+    }
+}

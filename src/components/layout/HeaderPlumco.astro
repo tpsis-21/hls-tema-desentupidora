@@ -1,0 +1,122 @@
+---
+import { readData } from '../../lib/readData';
+
+const siteConfig = readData('siteConfig.json');
+const menu = readData('menu.json', { items: [] });
+
+// Dados para menus dinâmicos
+const servicesData = readData('services.json');
+const services = (servicesData.items || []).map((s: any) => ({
+    label: s.title,
+    href: `/servicos/${s.slug}`
+}));
+
+const posts = readData('posts.json', []);
+const categoriesFromFile = readData('categories.json', []);
+const allCategories = [...new Set(categoriesFromFile)];
+
+const categories = allCategories.map((cat: any) => ({
+    label: cat,
+    href: `/categoria/${cat.toLowerCase().replace(/\s+/g, '-')}`
+}));
+---
+
+<header id="header">
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-7 col-md-5 col-sm-12 col-12">
+                    <div class="contact-intro">
+                        <ul>
+                            <li><i><img src="/assets/images/icon/1.png" alt=""></i>{menu.headerExtras?.schedule || "Seg - Sex || 08:00 - 18:00 (Emergências 24h)"}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col col-lg-5 col-md-7 col-sm-12 col-12">
+                    <div class="contact-info">
+                        <ul>
+                            <li><a href={`tel:${menu.headerExtras?.phone || siteConfig.phone || "(11) 99999-9999"}`}><i><img src="/assets/images/icon/2.png" alt=""></i> {menu.headerExtras?.phone || siteConfig.phone || "(11) 99999-9999"}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end topbar -->
+    <div class="wpo-site-header">
+        <nav class="navigation navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-3 col-3 d-lg-none dl-block">
+                        <div class="mobail-menu">
+                            <button type="button" class="navbar-toggler open-btn">
+                                <span class="sr-only">Alternar Navegação</span>
+                                <span class="icon-bar first-angle"></span>
+                                <span class="icon-bar middle-angle"></span>
+                                <span class="icon-bar last-angle"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-6">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/">
+                                {siteConfig.showLogo !== false ? (
+                                    <img src={siteConfig.logo || "/assets/images/logo.png"} alt={siteConfig.name}>
+                                ) : (
+                                    <span class="logo-text" style="font-size: 22px; font-weight: 800; color: var(--primary-color); letter-spacing: -0.5px; text-transform: uppercase;">{siteConfig.name}</span>
+                                )}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-1 col-1">
+                        <div id="navbar" class="collapse navbar-collapse navigation-holder">
+                            <button class="menu-close"><i class="ti-close"></i></button>
+                            <ul class="nav navbar-nav mb-2 mb-lg-0">
+                                {menu.items.map((item: any) => {
+                                    const hasSubMenu = item.items || item.showServices || item.showCategories;
+                                    let subItems = item.items || [];
+                                    
+                                    if (item.showServices) subItems = services;
+                                    else if (item.showCategories) subItems = categories;
+
+                                    return (
+                                        <li class={hasSubMenu ? "menu-item-has-children" : ""}>
+                                            <a href={item.href}>{item.label}</a>
+                                            {hasSubMenu && subItems.length > 0 && (
+                                                <ul class="sub-menu">
+                                                    {subItems.map((sub: any) => (
+                                                        <li><a href={sub.href}>{sub.label}</a></li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+
+                        </div><!-- end of nav-collapse -->
+                    </div>
+                    <div class="col col-lg-3 col-md-2 col-2">
+                        <div class="header-right">
+                            <div class="header-search-form-wrapper">
+                                <div class="cart-search-contact">
+                                    <button class="search-toggle-btn"><i class="fi flaticon-magnifiying-glass"></i></button>
+                                    <div class="header-search-form">
+                                        <form>
+                                            <div>
+                                                <input type="text" class="form-control" placeholder="Buscar aqui...">
+                                                <button type="submit"><i class="fi flaticon-magnifiying-glass"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="close-form">
+                                <a class="theme-btn" href={menu.headerExtras?.btnHref || "/contato"}>{menu.headerExtras?.btnText || "ORÇAMENTO GRÁTIS"}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end of container -->
+        </nav>
+    </div>
+</header>
